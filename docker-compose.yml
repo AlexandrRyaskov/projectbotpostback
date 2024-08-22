@@ -25,6 +25,29 @@ services:
       retries: 5
       start_period: 10s
 
+  api:
+    profiles: [ "api" ]
+    container_name: user_service.api
+    image: user_service
+    build:
+      context: .
+    restart: unless-stopped
+    expose:
+      - "5000"
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - user_service.postgres.network
+    command: [ "python", "-Om", "src.bot" ]
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -fsSL http://localhost:5000/healthcheck" ]
+      interval: 10s
+      timeout: 60s
+      retries: 5
+      start_period: 10s
 
 
   postgres:

@@ -26,14 +26,17 @@ def get_info_inline_kb(tg_user_id):
 
 def get_registration_successful_kb():
     inline_kb_list = [
-        [InlineKeyboardButton(text="Пополнить счет", url=config.replenishment)],
+        # [InlineKeyboardButton(text="Пополнить счет", url=config.replenishment)],
+        [InlineKeyboardButton(text="Я оплатил", callback_data="made_deposit")],
         [InlineKeyboardButton(text="Нужна помощь", url=config.help)],
     ]
     return InlineKeyboardMarkup(inline_keyboard=inline_kb_list)
 
 
 def get_successful():
-    inline_kb_list = [[InlineKeyboardButton("Вступить в канал", url=config.channel)]]
+    inline_kb_list = [
+        [InlineKeyboardButton(text="Вступить в канал", url=config.channel)]
+    ]
     return InlineKeyboardMarkup(inline_keyboard=inline_kb_list)
 
 

@@ -2,49 +2,48 @@ import asyncio
 import aiopg
 from fastapi import FastAPI
 from bot.config_reader import config
+from bot.database import create_connection
 from bot.user_status import UserStatus
 
 
 app = FastAPI()
 
 
-@app.get("/user/registered/{tg_user_id}/{win_user_id}")
-async def read_item(tg_user_id: int, password: str, win_user_id: int):
+@app.get("/user/registered/{win_user_id}")
+async def read_item(tg_user_id: str, password: str, win_user_id: str):
     if password != config.postback_password.get_secret_value():
         return
 
-    conn = await aiopg.connect(
-        database=config.database,
-        user=config.user,
-        password=config.password_db,
-        host=config.host.get_secret_value(),
-    )
-    cur = await conn.cursor()
-    await cur.execute(
-        f"UPDATE 1winreg WHERE tg_id = {tg_user_id} SET status = {UserStatus.REGISTERED}, win_user_id = {win_user_id}"
-    )
-    await conn.close()
+    async with create_connection() as conn:
+        cur = await conn.cursor()
+        await cur.execute(
+            "UPDATE users SET status = %s, win_user_id = %s WHERE tg_user_id = %s",
+            (
+                UserStatus.REGISTERED.value,
+                win_user_id,
+                tg_user_id,
+            ),
+        )
 
 
 @app.get("/user/made_deposit/{win_user_id}")
-async def read_item(win_user_id: int, password: str):
+async def read_item(win_user_id: str, password: str):
     if password != config.postback_password.get_secret_value():
         return
 
-    conn = await aiopg.connect(
-        database=config.database,
-        user=config.user,
-        password=config.password_db,
-        host=config.host.get_secret_value(),
-    )
-    cur = await conn.cursor()
-    await cur.execute(
-        f"UPDATE 1winreg WHERE win_user_id = {win_user_id} SET status = {UserStatus.MADE_DEPOSIT}"
-    )
-    await conn.close()
+    async with create_connection() as conn:
+        cur = await conn.cursor()
+        await cur.execute(
+            "UPDATE users SET status = %s WHERE win_user_id = %s",
+            (
+                UserStatus.MADE_DEPOSIT.value,
+                win_user_id,
+            ),
+        )
 
 
-# http://abc.com/user/registered/{sub1}/{user_id}
+# http://abc.com/user/registered/{user_id}/?tg_user_id={sub1}
+# http://abc.com/user/made_deposit/{user_id}
 
 #
 
