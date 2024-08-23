@@ -8,18 +8,16 @@ ENV PYTHONUNBUFFERED=1 \
     PYSETUP_PATH="/opt/pysetup" \
     VENV_PATH="/opt/pysetup/.venv"
 
-ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
-
-
 FROM python-base AS builder-base
 RUN apt-get update \
  && apt-get install -y --no-install-recommends gcc git
 
 WORKDIR $PYSETUP_PATH
-COPY ./requirements.txt ./
 RUN pip install --no-cache-dir --upgrade pip==24.0
 
+COPY ./requirements.txt ./
 RUN pip install -r ./requirements.txt --no-cache
+
 
 FROM python-base AS production
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
@@ -29,3 +27,5 @@ RUN apt-get update \
 
 WORKDIR /app
 COPY ./src /app/src
+COPY ./pyproject.toml /app
+RUN pip install --editable .
