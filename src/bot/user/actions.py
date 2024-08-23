@@ -1,5 +1,4 @@
 from aiopg import Connection
-
 from bot.user.models import User
 from bot.user_status import UserStatus
 

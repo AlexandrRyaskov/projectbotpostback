@@ -34,20 +34,5 @@ def get_registration_successful_kb():
 
 
 def get_successful():
-    inline_kb_list = [
-        [InlineKeyboardButton(text="Вступить в канал", url=config.channel)]
-    ]
-    return InlineKeyboardMarkup(inline_keyboard=inline_kb_list)
-
-
-def get_not_suc_reg_kb(tg_user_id):
-    inline_kb_list = [
-        [
-            InlineKeyboardButton(
-                text="Зарегистрироваться", url=config.reg.format(tg_user_id=tg_user_id)
-            )
-        ],
-        [InlineKeyboardButton(text="Я зарегестрировался", callback_data="123")],
-        [InlineKeyboardButton(text="Нужна помощь", url=config.help)],
-    ]
+    inline_kb_list = [[InlineKeyboardButton("Вступить в канал", url=config.channel)]]
     return InlineKeyboardMarkup(inline_keyboard=inline_kb_list)

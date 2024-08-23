@@ -1,5 +1,4 @@
 import asyncio
-import aiopg
 from fastapi import FastAPI
 from bot.config_reader import config
 from bot.database import create_connection

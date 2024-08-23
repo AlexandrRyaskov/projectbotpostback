@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-
 from bot.user_status import UserStatus
 
 

@@ -1,5 +1,4 @@
 import aiopg
-
 from bot.config_reader import config
 
 

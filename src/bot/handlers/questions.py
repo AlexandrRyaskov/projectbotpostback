@@ -80,6 +80,8 @@ async def registration_successful(call: CallbackQuery):
 
 @router.callback_query(F.data.startswith("made_deposit"))
 async def successful(call: CallbackQuery):
+    templates = jinja_env.get_template("successful.txt")
+    text = templates.render()
     async with create_connection() as conn:
         user = await get_user(conn, tg_user_id=str(call.from_user.id))
 
@@ -98,8 +100,4 @@ async def successful(call: CallbackQuery):
     if user.status != UserStatus.MADE_DEPOSIT:
         await call.message.answer("Пожалуйста, сделайте депозит!")
         return
-
-    templates = jinja_env.get_template("successful.txt")
-    text = templates.render()
-
     await call.message.answer(text, reply_markup=get_successful())
