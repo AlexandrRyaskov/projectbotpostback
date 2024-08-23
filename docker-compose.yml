@@ -45,9 +45,9 @@ services:
     env_file:
       - .env
     environment:
-      POSTGRES_PASSWORD: $PASSWORD_DB
-      POSTGRES_USER: $USER
-      POSTGRES_DB: $DATABASE
+      POSTGRES_PASSWORD: 101010
+      POSTGRES_USER: admin
+      POSTGRES_DB: 1winreg
     volumes:
       - user_service.postgres.data:/var/lib/postgresql/users:rw
     healthcheck:
