@@ -1,26 +1,9 @@
-FROM python:3.11-slim-buster AS python-base
+FROM python:3.11-slim-buster
 
-ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PIP_NO_CACHE_DIR=off \
-    PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIP_DEFAULT_TIMEOUT=100 \
-    PYSETUP_PATH="/opt/pysetup" \
-    VENV_PATH="/opt/pysetup/.venv"
-
-FROM python-base AS builder-base
-RUN apt-get update \
- && apt-get install -y --no-install-recommends gcc git
-
-WORKDIR $PYSETUP_PATH
-RUN pip install --no-cache-dir --upgrade pip==24.0
 
 COPY ./requirements.txt ./
 RUN pip install -r ./requirements.txt --no-cache
 
-
-FROM python-base AS production
-COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 RUN apt-get update \
  && apt-get install -y --no-install-recommends curl \
  && rm -rf /var/lib/apt/lists/*

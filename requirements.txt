@@ -8,8 +8,6 @@ annotated-types==0.7.0
 anyio==4.4.0
 async-timeout==4.0.3
 attrs==24.2.0
-# Editable Git install with no remote (bot==0.0.0)
--e /Users/admin/Pycharm/Projects/telegrambot
 certifi==2024.7.4
 charset-normalizer==3.3.2
 click==8.1.7
