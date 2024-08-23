@@ -42,6 +42,8 @@ services:
       - "5432"
     ports:
       - "127.0.0.1:15432:5432"
+    env_file:
+      - .env
     environment:
       POSTGRES_PASSWORD: $PASSWORD_DB
       POSTGRES_USER: $USER
