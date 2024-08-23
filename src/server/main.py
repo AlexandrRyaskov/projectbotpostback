@@ -41,8 +41,8 @@ async def read_item(win_user_id: str, password: str):
         )
 
 
-# http://abc.com/user/registered/{user_id}/?tg_user_id={sub1}
-# http://abc.com/user/made_deposit/{user_id}
+# http://194.59.247.173:8080/user/registered/{user_id}/?tg_user_id={sub1}
+# http://194.59.247.173:8080/user/made_deposit/{user_id}
 
 #
 

@@ -9,7 +9,7 @@ from bot.user_status import UserStatus
 
 
 async def observer(bot: Bot):
-    await asyncio.sleep(10)  # 86400
+    await asyncio.sleep(40)  # 86400
     logging.basicConfig(level=logging.INFO)
     template = jinja_env.get_template("not_reg.txt")
     text = template.render()
@@ -20,7 +20,7 @@ async def observer(bot: Bot):
     for user in users:
         await bot.send_photo(
             user.chat_id,
-            photo="src/bot/images/qqq.jpg",  # "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx6yT7oBWFeKJH-85mTe_LX8XL5RXw1mRFow&s"
+            photo="https://img.freepik.com/premium-photo/fabric-textured-background_236836-5916.jpg",
             caption=text,
             reply_markup=get_info_inline_kb(user.tg_user_id),
         )
