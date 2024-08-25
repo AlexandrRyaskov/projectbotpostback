@@ -13,7 +13,11 @@ def get_yes_kb() -> ReplyKeyboardMarkup:
 
 def get_info_inline_kb(tg_user_id):
     inline_kb_list = [
-        [InlineKeyboardButton(text="Zарегистрироваться", url=config.reg)],
+        [
+            InlineKeyboardButton(
+                text="Зарегистрироваться", url=config.reg.format(tg_user_id)
+            )
+        ],
         [InlineKeyboardButton(text="Я зарегестрировался", callback_data="registered")],
         [InlineKeyboardButton(text="Нужна помощь", url=config.help)],
     ]
