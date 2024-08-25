@@ -15,7 +15,7 @@ def get_info_inline_kb(tg_user_id):
     inline_kb_list = [
         [
             InlineKeyboardButton(
-                text="Зарегистрироваться", url=config.reg.format(tg_user_id=tg_user_id)
+                text="Zарегистрироваться", url=config.reg.format(tg_user_id=tg_user_id)
             )
         ],
         [InlineKeyboardButton(text="Я зарегестрировался", callback_data="registered")],
