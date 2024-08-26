@@ -9,7 +9,7 @@ from bot.user_status import UserStatus
 
 
 async def observer(bot: Bot):
-    await asyncio.sleep(40)  # 86400
+    await asyncio.sleep(86400)  # 86400
     logging.basicConfig(level=logging.INFO)
     template = jinja_env.get_template("not_reg.txt")
     text = template.render()
